@@ -68,3 +68,81 @@
         return answer;
     }
 ```
+
+### Lesson 4 - Counting Elements
+#### Missing Integer
+```javascript
+    function solution (A) {
+        const results = [0];
+        for (let i = 0; i < A.length; i++) {
+            if (A[i] > 0 && !results[A[i]]) {
+                results[A[i]] = A[i];
+            }
+        }
+        for (let i = 0; i < results.length; i++) {
+            if (results[i] === undefined) return i;
+        }
+        return results.length;
+    }
+```
+
+#### Frog River One
+```javascript
+    function solution (X, A) {
+        const leaves = new Array(X + 1).fill(false);
+        let riverCovered = X;
+        for (let i = 0; i < A.length; i++) {
+            if (!leaves[A[i]]) {
+                leaves[A[i]] = true;
+                riverCovered = riverCovered - 1;
+            }
+            if (!riverCovered) {
+                return i;
+            }
+        }
+        return -1;
+    }
+```
+
+#### Perm Check
+```javascript
+    function solution (A) {
+        const nums = [0];
+        for (let i = 0; i < A.length; i++) {
+            nums[A[i]] = A[i];
+        }
+        for (let i = 1; i <= A.length; i++) {
+            if (nums[i] !== i) {
+                return 0;
+            }
+        }
+        return 1;
+    }
+```
+
+#### Max Counters
+```javascript
+    function solution (N, A) {
+        const counters = new Array(N).fill(0);
+        let min = 0;
+        let max = 0;
+        for (let i = 0; i < A.length; i++) {
+            if (A[i] > N) {
+                min = max;
+            } else {
+                if (min <= counters[A[i] - 1]) {
+                    counters[A[i] - 1] = counters[A[i] - 1] + 1;
+                } else {
+                    counters[A[i] - 1] = min + 1;
+                }
+                max = max < counters[A[i]- 1] ? counters[A[i] - 1] : max;
+            }
+        }
+        for (let i = 0; i < counters.length; i++) {
+            if (counters[i] < min) {
+                counters[i] = min;
+            }
+        }
+        return counters;
+    }
+```
