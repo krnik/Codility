@@ -1,4 +1,11 @@
-### Lesson 1 Iterations
+- [1. Iterations](#1-iterations)
+    - [1.1. Binary Gap](#binary-gap)
+- [2. Arrays](#2-arrays)
+    - [2.1. Cyclic Rotation](#cyclic-rotation)
+    - [2.2. Odd Occurrences In Array](#odd-occurrences-in-array)
+
+
+### 1 Iterations
 #### Binary Gap
 ```javascript
     function solution (N) {
@@ -25,7 +32,7 @@
     }
 ```
 
-### Lesson 2 - Arrays
+### 2 Arrays
 #### Cyclic Rotation
 ```javascript
     function solution (A, K) {
