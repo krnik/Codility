@@ -1,6 +1,7 @@
-- [1. Iterations](#1-iterations)
+### Table Of Content
+- [1. Iterations](#lesson-1.-iterations)
     - [1.1. Binary Gap](#binary-gap)
-- [2. Arrays](#2-arrays)
+- [2. Arrays](#lesson-2.-arrays)
     - [2.1. Cyclic Rotation](#cyclic-rotation)
     - [2.2. Odd Occurrences In Array](#odd-occurrences-in-array)
 - [3. Time Complexity](#3-time-complexity)
@@ -16,7 +17,7 @@
     - [5.1. Distinct](#distinct)
     - [5.2. Max Product Of Three](#max-product-of-three)
     - [5.3. Triangle](#triangle)
-    - [5.4. Number Of Discs Intersections](#number-of-discs-intersections)
+    - [5.4. Number Of Disc Intersections](#number-of-disc-intersections)
 - [6. Stacks And Queues](#6-stacks-and-queues)
 - [7. Leader](#7-leader)
 - [8. Maximum Slice Problem](#8-maximum-slice-problem)
@@ -24,17 +25,17 @@
 - [10. Sieve Of Eratosthenes](#10-sieve-of-eratosthenes)
 - [11. Euclidean Algorithm](#11-euclidean-algorithm)
 
-### 1 Iterations
-#### Binary Gap
-> Task: to find longest '0' collection that is between '1' in a binary representation of given number.
+### [Lesson 1. Iterations](https://codility.com/programmers/lessons/1-iterations/)
+#### [Binary Gap](https://codility.com/programmers/lessons/1-iterations/binary_gap/)
+> Solution: Either use String method - Match [(see MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Match) or simply iterate through binary representation of a given number as shown in second solution function.
 ```javascript
 function solution (N) {
     const gaps = N.toString(2).match(/(0+)(?=1)/g);
     return gaps ? gaps.sort((a, b) => b.length - a.length )[0].length : 0;
 }
+```
 
-// OR
-
+```javascript
 function solution (N) {
     const num = N.toString(2);
     let longestGap = 0;
@@ -52,28 +53,58 @@ function solution (N) {
 }
 ```
 
-### 2 Arrays
-#### Cyclic Rotation
+### [Lesson 2. Arrays](https://codility.com/programmers/lessons/2-arrays/)
+#### [Cyclic Rotation](https://codility.com/programmers/lessons/2-arrays/cyclic_rotation/)
+
+> Solution: Iterate K times while removing last element of given array and adding it to the beginning of an array.
 ```javascript
 function solution (A, K) {
     if (!K || A.length < 2) return A;
-    const ar = A.slice();
+    const array = A.slice();
+    let lastElem;
     for (let i = 0; i < K; i++) {
-        let last = ar.pop();
-        ar.unshift(last);
+        let lastElem = array.pop();
+        array.unshift(lastElem);
     }
-    return ar;
+    return array;
 }
 ```
-#### Odd Occurrences In Array
+> Solution: Find index of an element that will be first element of an array after rotation.
+> **(K modulo A.len)** will return index of slice.
+> Elements with index bigger than slice index are first part of answer array.
+> Elements with index smaller than slice index are second part of answer array.
+```javascript
+function solution (A, K) {
+    const len = A.length;
+    if ( !K || !(K % len) || len < 2 ) return A;
+    const beginIndex = (K % len) * -1;
+    const answer = A.slice(beginIndex).concat(A.slice(0, len + beginIndex));
+    return answer;
+}
+```
+
+#### [Odd Occurrences In Array](https://codility.com/programmers/lessons/2-arrays/odd_occurrences_in_array/)
+> Solution: Use XOR [(see MDN)](https://developer.mozilla.org/pl/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_XOR)
 ```javascript
 function solution (A) {
-    const ar = A.slice().sort();
-    for (let i = 0; i < A.length; i = i + 2) {
+    let answer = 0;
+    for (let i = 0; i < A.length; i++) {
+        answer = answer ^ A[i];
+    }
+    return answer;
+}
+```
+
+> Worst-case time complexity probably is O(N * log(N)) - evaluated as 100%
+```javascript
+function solution (A) {
+    const ar = A.slice().sort( (a, b) => a - b );
+    for (let i = 0; i < ar.length; i = i + 2) {
         if (ar[i] !== ar[i + 1]) return ar[i];
     }
 }
 ```
+
 ### 3 Time Complexity
 #### Perm Missing Element
 ```javascript
