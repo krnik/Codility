@@ -13,17 +13,22 @@
     - [4.2. Frog River One](#frog-river-one)
     - [4.3. Perm Check](#perm-check)
     - [4.4. Max Counters](#max-counters)
-- [5. Sorting](#5-sorting)
-    - [5.1. Distinct](#distinct)
-    - [5.2. Max Product Of Three](#max-product-of-three)
-    - [5.3. Triangle](#triangle)
-    - [5.4. Number Of Disc Intersections](#number-of-disc-intersections)
-- [6. Stacks And Queues](#6-stacks-and-queues)
-- [7. Leader](#7-leader)
-- [8. Maximum Slice Problem](#8-maximum-slice-problem)
-- [9. Prime And Composite Numbers](#9-prime-and-composite-numbers)
-- [10. Sieve Of Eratosthenes](#10-sieve-of-eratosthenes)
-- [11. Euclidean Algorithm](#11-euclidean-algorithm)
+- [5. Prefix Sums](#5-prefix-sums)
+    - [5.1](#count-div)
+    - [5.2](#passing-cars)
+    - [5.3](#genomic-range-query)
+    - [5.4](#min-avg-two-slice)
+- [6. Sorting](#6-sorting)
+    - [6.1. Distinct](#distinct)
+    - [6.2. Max Product Of Three](#max-product-of-three)
+    - [6.3. Triangle](#triangle)
+    - [6.4. Number Of Disc Intersections](#number-of-disc-intersections)
+- [7. Stacks And Queues](#7-stacks-and-queues)
+- [8. Leader](#8-leader)
+- [9. Maximum Slice Problem](#9-maximum-slice-problem)
+- [10. Prime And Composite Numbers](#10-prime-and-composite-numbers)
+- [11. Sieve Of Eratosthenes](#11-sieve-of-eratosthenes)
+- [12. Euclidean Algorithm](#12-euclidean-algorithm)
 
 ### [Lesson 1. Iterations](https://codility.com/programmers/lessons/1-iterations/)
 #### [Binary Gap](https://codility.com/programmers/lessons/1-iterations/binary_gap/)
@@ -223,7 +228,37 @@ function solution (N, A) {
 }
 ```
 
-### 5 Sorting
+### 5 Prefix Sums
+#### Count Div
+```javascript
+function solution (A, B, K) {
+    return Math.floor(B / K) - Math.floor((A - 1) - K);
+}
+```
+#### Passing Cars
+```javascript
+function solution (A) {
+    let eastCars = 0;
+    let passingCars = 0;
+    for (let i = 0; i < A.length; i++) {
+        if (A[i] === 0) {
+            eastCars = eastCars + 1;
+        } else {
+            passingCars = pasingCars + eastCars;
+        }
+        // Check condition
+        if (passingCars > 1000000000) {
+            return -1;
+        }
+    }
+    return passingCars;
+}
+```
+#### Genomic Range Query
+#### Min Avg Two Slice
+
+
+### 6 Sorting
 #### Distinct
 ```javascript
 function solution (A) {
@@ -299,31 +334,31 @@ function solution (A) {
 }
 ```
 
-### 6 Stacks And Queues
+### 7 Stacks And Queues
 #### Brackets
 #### Fish
 #### Stone Wall
 #### Nesting
 
-### 7 Leader
+### 8 Leader
 #### Dominator
 #### EquiLeader
 
-### 8 Maximum Slice Problem
+### 9 Maximum Slice Problem
 #### Max Profit
 #### Max Double Slice Sum
 #### Max Slice Sum
 
-### 9 Prime And Composite Numbers
+### 10 Prime And Composite Numbers
 #### Min Perimeter Rectangle
 #### Count Factors
 #### Peaks
 #### Flags
 
-### 10 Sieve Of Eratosthenes
+### 11 Sieve Of Eratosthenes
 #### Count Semiprimes
 #### Count NonDivisible
 
-### 11 Euclidean Algorithm
+### 12 Euclidean Algorithm
 #### Chocolates By Numbers
 #### Common Prime Divisors
