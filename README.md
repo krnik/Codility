@@ -262,10 +262,46 @@ function solution (A) {
 ```javascript
 function solution (S, P, Q) {
     const answer = [];
-    for (let i = 0; i < P.length; i++) {
-        const query = S.slice(P[i], Q[i] + 1);
-        console.log(query);
+    const prefixSums = [];
+    const len = S.length;
+    // Map nucleotides into prefixSums array
+    for (let i = 0; i < len; i++) {
+        const char = S.charAt(i);
+        switch (char) {
+            case 'A':
+                prefixSums.push([1, 0, 0, 0]);
+                break;
+            case 'C':
+                prefixSums.push([0, 1, 0, 0]);
+                break;
+            case 'G':
+                prefixSums.push([0, 0, 1, 0]);
+                break;
+            default:
+                prefixSums.push([0, 0, 0, 1]);
+        }
     }
+    // create prefix sum from mapped nucleotides
+    for (let i = 1; i < len; i++) {
+        for (let j = 0; j < 4; j++) {
+            prefixSums[i][j] = prefixSums[i][j] + prefixSums[i - 1][j];
+        }
+    }
+    for (let i = 0; i < P.length; i++) {
+        const x = P[i];
+        const y = Q[i];
+
+        for (let j = 0; j < 4; j++) {
+            // Check if prefix sum at index preceding query start exists
+            // if yes take it's value, if no assign 0
+            const prefSum = x - 1 >= 0 ? prefixSums[x - 1][j] : 0;
+            if (prefixSums[y][j] - prefSum > 0) {
+                answer.push(j + 1);
+                break;
+            }
+        }
+    }
+    return answer;
 }
 ```
 #### [Min Avg Two Slice](https://codility.com/programmers/lessons/5-prefix_sums/min_avg_two_slice/)
@@ -303,8 +339,8 @@ function solution (A) {
 ```
 
 
-### 6 Sorting
-#### Distinct
+### [6 Sorting](https://codility.com/programmers/lessons/6-sorting/)
+#### [Distinct](https://codility.com/programmers/lessons/6-sorting/distinct/)
 ```javascript
 function solution (A) {
     const array = A.slice();
@@ -321,7 +357,7 @@ function solution (A) {
 }
 ```
 
-#### Max Product Of Three
+#### [Max Product Of Three](https://codility.com/programmers/lessons/6-sorting/max_product_of_three/)
 ```javascript
 function solution (A) {
     const array = A.slice();
@@ -333,7 +369,7 @@ function solution (A) {
 }
 ```
 
-#### Triangle
+#### [Triangle](https://codility.com/programmers/lessons/6-sorting/triangle/)
 ```javascript
 function solution (A) {
     if (A.length < 3) return 0;
@@ -349,7 +385,7 @@ function solution (A) {
 }
 ```
 
-#### Number Of Disc Intersections
+#### [Number Of Disc Intersections](https://codility.com/programmers/lessons/6-sorting/number_of_disc_intersections/)
 ```javascript
 function solution (A) {
     const discPoints = [];
@@ -379,11 +415,97 @@ function solution (A) {
 }
 ```
 
-### 7 Stacks And Queues
-#### Brackets
-#### Fish
-#### Stone Wall
-#### Nesting
+### [7 Stacks And Queues](https://codility.com/programmers/lessons/7-stacks_and_queues)
+#### [Brackets](https://codility.com/programmers/lessons/7-stacks_and_queues/brackets/)
+```javascript
+function solution (S) {
+    let stack = '';
+    for (let i = 0; i < S.length; i++) {
+        if (/[\{\[\(]/.test(S[i])) {
+            stack = stack + S[i];
+            continue;
+        }
+        const lastChar = stack.length ? stack[stack.length - 1] : '';
+        let lastOpposite = '';
+        switch (S[i]) {
+            case '}':
+                lastOpposite = '{';
+                break;
+            case ']':
+                lastOpposite = '[';
+                break;
+            case ')':
+                lastOpposite = '(';
+                break;
+        }
+        if (lastChar === lastOpposite) {
+            stack = stack.slice(0, stack.length - 1);
+        } else {
+            stack = stack + S[i];
+        }
+    }
+    return stack.length === 0 ? 1 : 0;
+}
+```
+#### [Fish](https://codility.com/programmers/lessons/7-stacks_and_queues/fish/)
+```javascript
+function solution(A, B) {
+    let alive = [];
+    for (let i = 0; i < A.length; i++) {
+        let last = alive.length - 1;
+        while (
+            alive.length && // There are fish alive
+            alive[last][0] < A[i] && // Current fish is bigger than last one
+            alive[last][1] !== B[i] && // Current fish swims in different direction than last one
+            B[i] === 0 // Current fish swims upstream
+        ) {
+            // Then current Fish eats last fish
+            alive.pop();
+            last = alive.length - 1;
+        }
+        if (!alive.length || B[i] === alive[last][1] || B[i] === 1) {
+            alive.push([A[i], B[i]]);
+        }
+    }
+    return alive.length;
+}
+```
+#### [Stone Wall](https://codility.com/programmers/lessons/7-stacks_and_queues/stone_wall/)
+```javascript
+function solution(H) {
+    const stack = [];
+    let answer = 0;
+    for (let i = 0; i < H.length; i++) {
+        while (stack.length && H[i] < stack[stack.length - 1]) {
+            stack.pop();
+        }
+        if (stack.length && stack[stack.length - 1] === H[i]) {
+            continue;
+        }
+        stack.push(H[i]);
+        answer = answer + 1;
+    }
+    return answer;
+}
+```
+#### [Nesting](https://codility.com/programmers/lessons/7-stacks_and_queues/nesting/)
+```javascript
+function solution(S) {
+    const stack = [];
+    for (let i = 0; i < S.length; i++) {
+        if (S[i] === '(') {
+            stack.push(S[i]);
+        } else {
+            if (stack.length && stack[stack.length - 1] === '(') {
+                stack.pop();
+            } else {
+                stack.push(S[i]);
+            }
+        }
+    }
+    return stack.length ? 0 : 1;
+}
+```
 
 ### 8 Leader
 #### Dominator
