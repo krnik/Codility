@@ -1,7 +1,7 @@
 ### Table Of Content
-- [1. Iterations](#lesson-1.-iterations)
+- [1. Iterations](#1-iterations)
     - [1.1. Binary Gap](#binary-gap)
-- [2. Arrays](#lesson-2.-arrays)
+- [2. Arrays](#2-arrays)
     - [2.1. Cyclic Rotation](#cyclic-rotation)
     - [2.2. Odd Occurrences In Array](#odd-occurrences-in-array)
 - [3. Time Complexity](#3-time-complexity)
@@ -14,23 +14,27 @@
     - [4.3. Perm Check](#perm-check)
     - [4.4. Max Counters](#max-counters)
 - [5. Prefix Sums](#5-prefix-sums)
-    - [5.1](#count-div)
-    - [5.2](#passing-cars)
-    - [5.3](#genomic-range-query)
-    - [5.4](#min-avg-two-slice)
+    - [5.1. Count Div](#count-div)
+    - [5.2. Passing Cars](#passing-cars)
+    - [5.3. Genomic Range Query](#genomic-range-query)
+    - [5.4. Min Avg Two Slice](#min-avg-two-slice)
 - [6. Sorting](#6-sorting)
     - [6.1. Distinct](#distinct)
     - [6.2. Max Product Of Three](#max-product-of-three)
     - [6.3. Triangle](#triangle)
     - [6.4. Number Of Disc Intersections](#number-of-disc-intersections)
 - [7. Stacks And Queues](#7-stacks-and-queues)
+    - [Brackets](#brackets)
+    - [Fish](#fish)
+    - [Stone Wall](#stone-wall)
+    - [Nesting](#nesting)
 - [8. Leader](#8-leader)
 - [9. Maximum Slice Problem](#9-maximum-slice-problem)
 - [10. Prime And Composite Numbers](#10-prime-and-composite-numbers)
 - [11. Sieve Of Eratosthenes](#11-sieve-of-eratosthenes)
 - [12. Euclidean Algorithm](#12-euclidean-algorithm)
 
-### [Lesson 1. Iterations](https://codility.com/programmers/lessons/1-iterations/)
+### [1 Iterations](https://codility.com/programmers/lessons/1-iterations/)
 #### [Binary Gap](https://codility.com/programmers/lessons/1-iterations/binary_gap/)
 > Solution: Either use String method - Match [(see MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Match) or simply iterate through binary representation of a given number as shown in second solution function.
 ```javascript
@@ -58,7 +62,7 @@ function solution (N) {
 }
 ```
 
-### [Lesson 2. Arrays](https://codility.com/programmers/lessons/2-arrays/)
+### [2 Arrays](https://codility.com/programmers/lessons/2-arrays/)
 #### [Cyclic Rotation](https://codility.com/programmers/lessons/2-arrays/cyclic_rotation/)
 
 > Solution: Iterate K times while removing last element of given array and adding it to the beginning of an array.
@@ -110,8 +114,8 @@ function solution (A) {
 }
 ```
 
-### 3 Time Complexity
-#### Perm Missing Element
+### [3 Time Complexity](https://codility.com/programmers/lessons/3-time_complexity/)
+#### [Perm Missing Element](https://codility.com/programmers/lessons/3-time_complexity/perm_missing_elem/)
 ```javascript
 function solution (A) {
     let sum = 0;
@@ -123,14 +127,14 @@ function solution (A) {
 ```
 > Hint - see Sum of Arithmetic Progression
 
-#### Frog Jump
+#### [Frog Jump](https://codility.com/programmers/lessons/3-time_complexity/frog_jmp/)
 ```javascript
 function solution (X, Y, D) {
     return Math.ceil((Y - X) /D);
 }
 ```
 
-#### Tape Equilibrium
+#### [Tape Equilibrium](https://codility.com/programmers/lessons/3-time_complexity/tape_equilibrium/)
 ```javascript
 function solution (A) {
     let left = 0;
@@ -150,8 +154,8 @@ function solution (A) {
 }
 ```
 
-### 4 Counting Elements
-#### Missing Integer
+### [4 Counting Elements](https://codility.com/programmers/lessons/4-counting_elements/)
+#### [Missing Integer](https://codility.com/programmers/lessons/4-counting_elements/missing_integer/)
 ```javascript
 function solution (A) {
     const results = [0];
@@ -167,7 +171,7 @@ function solution (A) {
 }
 ```
 
-#### Frog River One
+#### [Frog River One](https://codility.com/programmers/lessons/4-counting_elements/frog_river_one/)
 ```javascript
 function solution (X, A) {
     const leaves = new Array(X + 1).fill(false);
@@ -185,7 +189,7 @@ function solution (X, A) {
 }
 ```
 
-#### Perm Check
+#### [Perm Check](https://codility.com/programmers/lessons/4-counting_elements/perm_check/)
 ```javascript
 function solution (A) {
     const nums = [0];
@@ -201,7 +205,7 @@ function solution (A) {
 }
 ```
 
-#### Max Counters
+#### [Max Counters](https://codility.com/programmers/lessons/4-counting_elements/max_counters/)
 ```javascript
 function solution (N, A) {
     const counters = new Array(N).fill(0);
@@ -228,14 +232,14 @@ function solution (N, A) {
 }
 ```
 
-### 5 Prefix Sums
-#### Count Div
+### [5 Prefix Sums](https://codility.com/programmers/lessons/5-prefix_sums/)
+#### [Count Div](https://codility.com/programmers/lessons/5-prefix_sums/count_div/)
 ```javascript
 function solution (A, B, K) {
     return Math.floor(B / K) - Math.floor((A - 1) - K);
 }
 ```
-#### Passing Cars
+#### [Passing Cars](https://codility.com/programmers/lessons/5-prefix_sums/passing_cars/)
 ```javascript
 function solution (A) {
     let eastCars = 0;
@@ -254,8 +258,49 @@ function solution (A) {
     return passingCars;
 }
 ```
-#### Genomic Range Query
-#### Min Avg Two Slice
+#### [Genomic Range Query](https://codility.com/programmers/lessons/5-prefix_sums/genomic_range_query/)
+```javascript
+function solution (S, P, Q) {
+    const answer = [];
+    for (let i = 0; i < P.length; i++) {
+        const query = S.slice(P[i], Q[i] + 1);
+        console.log(query);
+    }
+}
+```
+#### [Min Avg Two Slice](https://codility.com/programmers/lessons/5-prefix_sums/min_avg_two_slice/)
+```javascript
+function solution (A) {
+    let minAvgSlice = (A[0] + A[1]) / 2; // minimal slice average
+
+    if (A.length === 2) {
+        return 0;
+    }
+
+    let answer = 0;
+
+    for (let i = 0; i < A.length - 1; i++) {
+
+        // Check slice containing 2 elements
+        let currentSliceAvg = (A[i] + A[i + 1]) / 2;
+        if (currentSliceAvg < minAvgSlice) {
+            minAvgSlice = currentSliceAvg;
+            answer = i;
+        }
+
+        // Check slice containing 3 elements
+        if (i + 2 < A.length) {
+            currentSliceAvg = (A[i] + A[i + 1] + A[i + 2]) / 3;
+            if (currentSliceAvg < minAvgSlice) {
+                minAvgSlice = currentSliceAvg;
+                answer = i;
+            }
+        }
+    }
+
+    return answer;
+}
+```
 
 
 ### 6 Sorting
