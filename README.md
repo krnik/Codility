@@ -449,7 +449,7 @@ function solution (S) {
 ```
 #### [Fish](https://codility.com/programmers/lessons/7-stacks_and_queues/fish/)
 ```javascript
-function solution(A, B) {
+function solution (A, B) {
     let alive = [];
     for (let i = 0; i < A.length; i++) {
         let last = alive.length - 1;
@@ -472,7 +472,7 @@ function solution(A, B) {
 ```
 #### [Stone Wall](https://codility.com/programmers/lessons/7-stacks_and_queues/stone_wall/)
 ```javascript
-function solution(H) {
+function solution (H) {
     const stack = [];
     let answer = 0;
     for (let i = 0; i < H.length; i++) {
@@ -490,7 +490,7 @@ function solution(H) {
 ```
 #### [Nesting](https://codility.com/programmers/lessons/7-stacks_and_queues/nesting/)
 ```javascript
-function solution(S) {
+function solution (S) {
     const stack = [];
     for (let i = 0; i < S.length; i++) {
         if (S[i] === '(') {
@@ -507,18 +507,98 @@ function solution(S) {
 }
 ```
 
-### 8 Leader
-#### Dominator
-#### EquiLeader
+### [8 Leader](https://codility.com/programmers/lessons/8-leader/)
+#### [Dominator](https://codility.com/programmers/lessons/8-leader/dominator/)
+```javascript
+function solution (A) {
+    const dom = [];
+    for (let i = 0; i < A.length; i++) {
+        if (!dom.length || dom[dom.length - 1] === A[i]) {
+            dom.push(A[i]);
+        } else {
+            dom.pop();
+        }
+    }
+    const first = dom[0];
+    let count = 0;
+    for (let i = 0; i < A.length; i++) {
+        if (A[i] === first) {
+            count = count + 1;
+        }
+    }
+    return count > (A.length / 2) ? A.indexOf(first) : -1;
+}
+```
+#### [EquiLeader](https://codility.com/programmers/lessons/8-leader/equi_leader/)
+```javascript
+function solution (A) {
+}
+```
 
-### 9 Maximum Slice Problem
-#### Max Profit
-#### Max Double Slice Sum
-#### Max Slice Sum
+### [9 Maximum Slice Problem](https://codility.com/programmers/lessons/9-maximum_slice_problem/)
+#### [Max Profit](https://codility.com/programmers/lessons/9-maximum_slice_problem/max_profit/)
+```javascript
+function solution (A) {
+    let min = A[0];
+    let max = A[1];
+    let answer = 0;
+    for (let i = 0; i < A.length; i++) {
+        if (min > A[i]) {
+            min = A[i];
+            max = min;
+        } else {
+            if (max < A[i]) max = A[u];
+        }
+        if (answer < max - min) answer = max - min;
+    }
+    return answer;
+}
+```
+#### [Max Double Slice Sum](https://codility.com/programmers/lessons/9-maximum_slice_problem/max_double_slice_sum/)
+```javascript
+function solution (A) {
+    const len = A.length;
+    const left = new Array(len).fill(0);
+    const right = new Array(len).fill(0);
+    let ans = 0;
+    for (let i = 1; i < len - 1; i++) {
+        left[i] = Math.max(0, l[i - 1] + A[i]);
+        right[i] = Math.max(0, r[i - 1] + A[len - i - 1]);
+    }
+    for (let i = 1; i < n - 1; i++) {
+        ans = Math.max(ans, left[i - 1] + right[len - i - 2]);
+    }
+    return ans;
+}
+```
+#### [Max Slice Sum](https://codility.com/programmers/lessons/9-maximum_slice_problem/max_slice_sum/)
+```javascript
+function solution (A) {
+    let max = A[i];
+    let m = A[i];
+    for (let i = 0; i < A.length; i++) {
+        m = Math.max(A[i], m + A[i]);
+        max = Math.max(max, m);
+    }
+    return max;
+}
+```
 
-### 10 Prime And Composite Numbers
+### [10 Prime And Composite Numbers](https://codility.com/programmers/lessons/10-prime_and_composite_numbers/)
 #### Min Perimeter Rectangle
 #### Count Factors
+```javascript
+function solution (N) {
+    let ans = 0;
+    let i = 1;
+    while (i * i < N) {
+        if (!(n % i)) ans = ans + 2;
+        i = i + 1;
+    }
+    if (i * i === N) ans = ans + 1;
+    return ans;
+}
+```
 #### Peaks
 #### Flags
 
