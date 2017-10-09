@@ -24,15 +24,28 @@
     - [6.3. Triangle](#triangle)
     - [6.4. Number Of Disc Intersections](#number-of-disc-intersections)
 - [7. Stacks And Queues](#7-stacks-and-queues)
-    - [Brackets](#brackets)
-    - [Fish](#fish)
-    - [Stone Wall](#stone-wall)
-    - [Nesting](#nesting)
+    - [7.1. Brackets](#brackets)
+    - [7.2. Fish](#fish)
+    - [7.3. Stone Wall](#stone-wall)
+    - [7.4. Nesting](#nesting)
 - [8. Leader](#8-leader)
+    - [8.1. Dominator](#dominator)
+    - [8.2. EquiLeader](#equileader)
 - [9. Maximum Slice Problem](#9-maximum-slice-problem)
+    - [9.1. Max Profit](#max-profit)
+    - [9.2. Max Double Slice Sum](#max-double-slice-sum)
+    - [9.3. Max Slice Sum](#max-slice-sum)
 - [10. Prime And Composite Numbers](#10-prime-and-composite-numbers)
+    - [10.1. Max Perimeter Rectangle](#max-perimeter-rectangle)
+    - [10.2. Count Factors](#count-factors)
+    - [10.3. Peaks](#peaks)
+    - [10.4. Flags](#flags)
 - [11. Sieve Of Eratosthenes](#11-sieve-of-eratosthenes)
+    - [11.1. Count Semiprimes](#count-semiprimes)
+    - [11.2. Count Non Divisible](#count-non-divisible)
 - [12. Euclidean Algorithm](#12-euclidean-algorithm)
+    - [12.1. Chocolates By Numbers](#chocolates-by-numbers)
+    - [12.2. Common Prime Divisors](#common-prime-divisors)
 
 ### [1 Iterations](https://codility.com/programmers/lessons/1-iterations/)
 #### [Binary Gap](https://codility.com/programmers/lessons/1-iterations/binary_gap/)
@@ -290,7 +303,6 @@ function solution (S, P, Q) {
     for (let i = 0; i < P.length; i++) {
         const x = P[i];
         const y = Q[i];
-
         for (let j = 0; j < 4; j++) {
             // Check if prefix sum at index preceding query start exists
             // if yes take it's value, if no assign 0
@@ -308,22 +320,17 @@ function solution (S, P, Q) {
 ```javascript
 function solution (A) {
     let minAvgSlice = (A[0] + A[1]) / 2; // minimal slice average
-
     if (A.length === 2) {
         return 0;
     }
-
     let answer = 0;
-
     for (let i = 0; i < A.length - 1; i++) {
-
         // Check slice containing 2 elements
         let currentSliceAvg = (A[i] + A[i + 1]) / 2;
         if (currentSliceAvg < minAvgSlice) {
             minAvgSlice = currentSliceAvg;
             answer = i;
         }
-
         // Check slice containing 3 elements
         if (i + 2 < A.length) {
             currentSliceAvg = (A[i] + A[i + 1] + A[i + 2]) / 3;
@@ -333,7 +340,6 @@ function solution (A) {
             }
         }
     }
-
     return answer;
 }
 ```
@@ -532,6 +538,40 @@ function solution (A) {
 #### [EquiLeader](https://codility.com/programmers/lessons/8-leader/equi_leader/)
 ```javascript
 function solution (A) {
+    const dom = [];
+    for (let i = 0; i < A.length; i++) {
+        if (!dom.length || dom[dom.length - 1] === A[i]) {
+            dom.push(A[i]);
+        } else {
+            dom.pop();
+        }
+    }
+    const candidate = dom[0];
+    let count = 0;
+    for (let i = 0; i < A.length; i++) {
+        if (A[i] === candidate) {
+            count = count + 1;
+        }
+    }
+    const leader = count > (A.length / 2) ? candidate : false;
+    if (leader === false) {
+        return 0;
+    }
+    const equi = [];
+    let eCount = 0;
+    for (let i = 0; i < A.length; i++) {
+        if (A[i] === leader) {
+         eCount = eCount + 1;
+        }
+        equi.push(eCount);
+    }
+    let answer = 0;
+    for (let i = 0; i < A.length - 1; i++) {
+        if (equi[i] > ((i + 1) / 2) && (eCount - equi[i]) > ((A.length - i - 1) / 2)) {
+            answer = answer + 1;
+        }
+    }
+    return answer;
 }
 ```
 
@@ -586,6 +626,32 @@ function solution (A) {
 
 ### [10 Prime And Composite Numbers](https://codility.com/programmers/lessons/10-prime_and_composite_numbers/)
 #### Min Perimeter Rectangle
+```javascript
+function solution(N) {
+    let i = 1;
+    let A;
+    let B;
+    let answer = N * 5;
+    while (i * i < N) {
+        if (N % i === 0) {
+            A = i * 2;
+            B = (N / i) * 2;
+            if (answer > A + B) {
+                answer = A + B;
+            }
+        }
+        i = i + 1;
+    }
+    if (i * i === N) {
+        A = i * 2;
+        B = i * 2;
+        if (answer > A + B) {
+            answer = A + B;
+        }
+    }
+    return answer;
+}
+```
 #### Count Factors
 ```javascript
 function solution (N) {
@@ -600,11 +666,57 @@ function solution (N) {
 }
 ```
 #### Peaks
+```javascript
+function solution (A) {
+    const peakIndexes = [];
+    for (let i = 1; i < A.length - 1; i++) {
+        if (A[i] > A[i - 1] && A[i] > A[i + 1]) {
+            peakIndexes.push(i);
+        }
+    }
+    const pLen = peakIndexes.length;
+    if (pLen <= 1) {
+        return pLen;
+    }
+    const divisors = [];
+    let i = 1;
+    while (i <= pLen) {
+        if (A.length % i === 0) {
+            divisors.push(i);
+        }
+        i = i + 1;
+    }
+    i = divisors.length - 1;
+    let answer;
+    let filled;
+    let len;
+    let cnt;
+    while (i > 0) {
+        answer = divisors[i];
+        len = A.length / answer;
+        cnt = 0;
+        filled = 0;
+        while (cnt < pLen) {
+            if (filled * len <= peakIndexes[cnt] && peakIndexes[cnt] < (filled + 1) * len) {
+                filled = filled + 1;
+            }
+            cnt = cnt + 1;
+        }
+        if (answer === filled) {
+            return answer;
+        }
+        i = i - 1;
+    }
+    return divisors[i];
+}
+```
 #### Flags
+```javascript
+```
 
 ### 11 Sieve Of Eratosthenes
 #### Count Semiprimes
-#### Count NonDivisible
+#### Count Non Divisible
 
 ### 12 Euclidean Algorithm
 #### Chocolates By Numbers
