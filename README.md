@@ -625,7 +625,7 @@ function solution (A) {
 ```
 
 ### [10 Prime And Composite Numbers](https://codility.com/programmers/lessons/10-prime_and_composite_numbers/)
-#### Min Perimeter Rectangle
+#### [Min Perimeter Rectangle](https://codility.com/programmers/lessons/10-prime_and_composite_numbers/min_perimeter_rectangle/)
 ```javascript
 function solution(N) {
     let i = 1;
@@ -652,7 +652,7 @@ function solution(N) {
     return answer;
 }
 ```
-#### Count Factors
+#### [Count Factors](https://codility.com/programmers/lessons/10-prime_and_composite_numbers/count_factors/)
 ```javascript
 function solution (N) {
     let ans = 0;
@@ -665,7 +665,7 @@ function solution (N) {
     return ans;
 }
 ```
-#### Peaks
+#### [Peaks](https://codility.com/programmers/lessons/10-prime_and_composite_numbers/peaks/)
 ```javascript
 function solution (A) {
     const peakIndexes = [];
@@ -710,14 +710,53 @@ function solution (A) {
     return divisors[i];
 }
 ```
-#### Flags
+#### [Flags](https://codility.com/programmers/lessons/10-prime_and_composite_numbers/flags/)
 ```javascript
+function solution (A) {
+    if (A.length < 3) {
+        return 0;
+    }
+    const peaks = [];
+    for (let i = 0; i < A.length; i++) {
+        if (A[i] > A[i - 1] && A[i] > A[i + 1]) {
+            peaks.push(i);
+        }
+    }
+    if (peaks.length < 2) {
+        return peaks.length;
+    }
+    let flagLimit = Math.floor(Math.sqrt(peaks[peaks.length - 1] - peaks[0])) + 1;
+    let canPlaceAtLeast = 0;
+    while (canPlaceAtLeast < flagLimit - 1) {
+        const half = Math.floor((flagLimit + canPlaceAtLeast) / 2);
+        if (canPlace(half)) {
+            canPlaceAtLeast = half;
+        } else {
+            flagLimit = half;
+        }
+    }
+    return canPlace(flagLimit) ? flagLimit : canPlaceAtLeast;
+
+    function canPlace (numberOfFlags) {
+        let last = peaks[0];
+        let count = 1;
+        let i = 1;
+        while (i < peaks.length && count < numberOfFlags) {
+            if (peaks[i] - last >= numberOfFlags) {
+                last = peaks[i];
+                count = count + 1;
+            }
+            i = i + 1;
+        }
+        return count >= numberOfFlags;
+    }
+}
 ```
 
-### 11 Sieve Of Eratosthenes
-#### Count Semiprimes
-#### Count Non Divisible
+### [11 Sieve Of Eratosthenes](https://codility.com/programmers/lessons/11-sieve_of_eratosthenes/)
+#### [Count Semiprimes](https://codility.com/programmers/lessons/11-sieve_of_eratosthenes/count_semiprimes/)
+#### [Count Non Divisible](https://codility.com/programmers/lessons/11-sieve_of_eratosthenes/count_non_divisible/)
 
-### 12 Euclidean Algorithm
-#### Chocolates By Numbers
-#### Common Prime Divisors
+### [12 Euclidean Algorithm](https://codility.com/programmers/lessons/12-euclidean_algorithm/)
+#### [Chocolates By Numbers](https://codility.com/programmers/lessons/12-euclidean_algorithm/chocolates_by_numbers/)
+#### [Common Prime Divisors](https://codility.com/programmers/lessons/12-euclidean_algorithm/common_prime_divisors/)
