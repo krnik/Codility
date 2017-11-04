@@ -62,7 +62,8 @@ function solution (N) {
     const num = N.toString(2);
     let longestGap = 0;
     let currentGap = 0;
-    for (let i = 0; i < num.length; i++) {
+    const len = num.length;
+    for (let i = 0; i < len; i++) {
         if (num[i] === '1') {
             if (longestGap < currentGap) {
                 longestGap = currentGap;
@@ -110,7 +111,8 @@ function solution (A, K) {
 ```javascript
 function solution (A) {
     let answer = 0;
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         answer = answer ^ A[i];
     }
     return answer;
@@ -121,7 +123,8 @@ function solution (A) {
 ```javascript
 function solution (A) {
     const ar = A.slice().sort( (a, b) => a - b );
-    for (let i = 0; i < ar.length; i = i + 2) {
+    const len = ar.length;
+    for (let i = 0; i < len; i = i + 2) {
         if (ar[i] !== ar[i + 1]) return ar[i];
     }
 }
@@ -132,10 +135,11 @@ function solution (A) {
 ```javascript
 function solution (A) {
     let sum = 0;
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         sum = sum + A[i];
     }
-    return ((A.length + 1) * (A.length + 2)) / 2 - sum;
+    return ((len + 1) * (len + 2)) / 2 - sum;
 }
 ```
 > Hint - see Sum of Arithmetic Progression
@@ -153,7 +157,8 @@ function solution (A) {
     let left = 0;
     let right = A.reduce((s, elem) => s + elem);
     let answer = false;
-    for (let i = 0; i < A.length - 1; i++) {
+    const len = A.length;
+    for (let i = 0; i < len - 1; i++) {
         left = left + A[i];
         right = right - A[i];
         const diff = Math.abs(left - right);
@@ -172,7 +177,8 @@ function solution (A) {
 ```javascript
 function solution (A) {
     const results = [0];
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         if (A[i] > 0 && !results[A[i]]) {
             results[A[i]] = A[i];
         }
@@ -189,7 +195,8 @@ function solution (A) {
 function solution (X, A) {
     const leaves = new Array(X + 1).fill(false);
     let riverCovered = X;
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         if (!leaves[A[i]]) {
             leaves[A[i]] = true;
             riverCovered = riverCovered - 1;
@@ -206,10 +213,11 @@ function solution (X, A) {
 ```javascript
 function solution (A) {
     const nums = [0];
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         nums[A[i]] = A[i];
     }
-    for (let i = 1; i <= A.length; i++) {
+    for (let i = 1; i <= len; i++) {
         if (nums[i] !== i) {
             return 0;
         }
@@ -224,7 +232,8 @@ function solution (N, A) {
     const counters = new Array(N).fill(0);
     let min = 0;
     let max = 0;
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         if (A[i] > N) {
             min = max;
         } else {
@@ -236,7 +245,8 @@ function solution (N, A) {
             max = max < counters[A[i]- 1] ? counters[A[i] - 1] : max;
         }
     }
-    for (let i = 0; i < counters.length; i++) {
+    const cntLen = counters.length;
+    for (let i = 0; i < cntLen; i++) {
         if (counters[i] < min) {
             counters[i] = min;
         }
@@ -257,7 +267,8 @@ function solution (A, B, K) {
 function solution (A) {
     let eastCars = 0;
     let passingCars = 0;
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         if (A[i] === 0) {
             eastCars = eastCars + 1;
         } else {
@@ -300,7 +311,8 @@ function solution (S, P, Q) {
             prefixSums[i][j] = prefixSums[i][j] + prefixSums[i - 1][j];
         }
     }
-    for (let i = 0; i < P.length; i++) {
+    const pLen = P.length;
+    for (let i = 0; i < pLen; i++) {
         const x = P[i];
         const y = Q[i];
         for (let j = 0; j < 4; j++) {
@@ -324,7 +336,8 @@ function solution (A) {
         return 0;
     }
     let answer = 0;
-    for (let i = 0; i < A.length - 1; i++) {
+    const len = A.length;
+    for (let i = 0; i < len - 1; i++) {
         // Check slice containing 2 elements
         let currentSliceAvg = (A[i] + A[i + 1]) / 2;
         if (currentSliceAvg < minAvgSlice) {
@@ -332,7 +345,7 @@ function solution (A) {
             answer = i;
         }
         // Check slice containing 3 elements
-        if (i + 2 < A.length) {
+        if (i + 2 < len) {
             currentSliceAvg = (A[i] + A[i + 1] + A[i + 2]) / 3;
             if (currentSliceAvg < minAvgSlice) {
                 minAvgSlice = currentSliceAvg;
@@ -353,7 +366,8 @@ function solution (A) {
     array.sort((a, b) => a - b);
     let distinct = 0;
     let currentNumber = null;
-    for (let i = 0; i < array.length; i++) {
+    const len = array.length;
+    for (let i = 0; i < len; i++) {
         if (array[i] !== currentNumber) {
             currentNumber = array[i];
             distinct = distinct + 1;
@@ -382,7 +396,8 @@ function solution (A) {
     const array = A.slice();
     array.sort((a, b) => a - b);
     let answer = 0;
-    for (let i = 0; i < array.length - 2; i++) {
+    const len = A.length;
+    for (let i = 0; i < len - 2; i++) {
         const a = array[i];
         const b = array[i + 1];
         const c = array[i + 2];
@@ -395,7 +410,8 @@ function solution (A) {
 ```javascript
 function solution (A) {
     const discPoints = [];
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         discPoints.push([i - A[i], 0], [i + A[i], 0]);
     }
     discPoints.sort((a, b) => {
@@ -408,7 +424,8 @@ function solution (A) {
     let answer = 0;
     let openDiscs = 0;
     let closedDiscs = 0;
-    for (let i = 0; i < discPoints.length; i++) {
+    const discLen = discPoints.length;
+    for (let i = 0; i < discLen; i++) {
         if (!discPoints[i][1]) {
             openDiscs = openDiscs + 1;
         } else {
@@ -426,7 +443,8 @@ function solution (A) {
 ```javascript
 function solution (S) {
     let stack = '';
-    for (let i = 0; i < S.length; i++) {
+    const len = S.length;
+    for (let i = 0; i < len; i++) {
         if (/[\{\[\(]/.test(S[i])) {
             stack = stack + S[i];
             continue;
@@ -457,7 +475,8 @@ function solution (S) {
 ```javascript
 function solution (A, B) {
     let alive = [];
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         let last = alive.length - 1;
         while (
             alive.length && // There are fish alive
@@ -481,7 +500,8 @@ function solution (A, B) {
 function solution (H) {
     const stack = [];
     let answer = 0;
-    for (let i = 0; i < H.length; i++) {
+    const len = H.length;
+    for (let i = 0; i < len; i++) {
         while (stack.length && H[i] < stack[stack.length - 1]) {
             stack.pop();
         }
@@ -498,7 +518,8 @@ function solution (H) {
 ```javascript
 function solution (S) {
     const stack = [];
-    for (let i = 0; i < S.length; i++) {
+    const len = S.length;
+    for (let i = 0; i < len; i++) {
         if (S[i] === '(') {
             stack.push(S[i]);
         } else {
@@ -518,7 +539,8 @@ function solution (S) {
 ```javascript
 function solution (A) {
     const dom = [];
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         if (!dom.length || dom[dom.length - 1] === A[i]) {
             dom.push(A[i]);
         } else {
@@ -527,7 +549,7 @@ function solution (A) {
     }
     const first = dom[0];
     let count = 0;
-    for (let i = 0; i < A.length; i++) {
+    for (let i = 0; i < len; i++) {
         if (A[i] === first) {
             count = count + 1;
         }
@@ -539,7 +561,8 @@ function solution (A) {
 ```javascript
 function solution (A) {
     const dom = [];
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         if (!dom.length || dom[dom.length - 1] === A[i]) {
             dom.push(A[i]);
         } else {
@@ -548,26 +571,26 @@ function solution (A) {
     }
     const candidate = dom[0];
     let count = 0;
-    for (let i = 0; i < A.length; i++) {
+    for (let i = 0; i < len; i++) {
         if (A[i] === candidate) {
             count = count + 1;
         }
     }
-    const leader = count > (A.length / 2) ? candidate : false;
+    const leader = count > (len / 2) ? candidate : false;
     if (leader === false) {
         return 0;
     }
     const equi = [];
     let eCount = 0;
-    for (let i = 0; i < A.length; i++) {
+    for (let i = 0; i < len; i++) {
         if (A[i] === leader) {
          eCount = eCount + 1;
         }
         equi.push(eCount);
     }
     let answer = 0;
-    for (let i = 0; i < A.length - 1; i++) {
-        if (equi[i] > ((i + 1) / 2) && (eCount - equi[i]) > ((A.length - i - 1) / 2)) {
+    for (let i = 0; i < len - 1; i++) {
+        if (equi[i] > ((i + 1) / 2) && (eCount - equi[i]) > ((len - i - 1) / 2)) {
             answer = answer + 1;
         }
     }
@@ -582,7 +605,8 @@ function solution (A) {
     let min = A[0];
     let max = A[1];
     let answer = 0;
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         if (min > A[i]) {
             min = A[i];
             max = min;
@@ -616,7 +640,8 @@ function solution (A) {
 function solution (A) {
     let max = A[i];
     let m = A[i];
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         m = Math.max(A[i], m + A[i]);
         max = Math.max(max, m);
     }
@@ -669,7 +694,8 @@ function solution (N) {
 ```javascript
 function solution (A) {
     const peakIndexes = [];
-    for (let i = 1; i < A.length - 1; i++) {
+    const Alen = A.length;
+    for (let i = 1; i < Alen - 1; i++) {
         if (A[i] > A[i - 1] && A[i] > A[i + 1]) {
             peakIndexes.push(i);
         }
@@ -681,7 +707,7 @@ function solution (A) {
     const divisors = [];
     let i = 1;
     while (i <= pLen) {
-        if (A.length % i === 0) {
+        if (Alen % i === 0) {
             divisors.push(i);
         }
         i = i + 1;
@@ -717,7 +743,8 @@ function solution (A) {
         return 0;
     }
     const peaks = [];
-    for (let i = 0; i < A.length; i++) {
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
         if (A[i] > A[i - 1] && A[i] > A[i + 1]) {
             peaks.push(i);
         }
@@ -755,8 +782,27 @@ function solution (A) {
 
 ### [11 Sieve Of Eratosthenes](https://codility.com/programmers/lessons/11-sieve_of_eratosthenes/)
 #### [Count Semiprimes](https://codility.com/programmers/lessons/11-sieve_of_eratosthenes/count_semiprimes/)
+```javascript
+function solution (N, P, Q) {
+
+}
+```
+
 #### [Count Non Divisible](https://codility.com/programmers/lessons/11-sieve_of_eratosthenes/count_non_divisible/)
 
 ### [12 Euclidean Algorithm](https://codility.com/programmers/lessons/12-euclidean_algorithm/)
 #### [Chocolates By Numbers](https://codility.com/programmers/lessons/12-euclidean_algorithm/chocolates_by_numbers/)
+```javascript
+function solution (N, M) {
+    const gcp = (a, b) => {
+        if (!(a % b)) {
+            return b;
+        } else {
+            return gcp(b, a % b);
+        }
+    };
+    return N / gcp(N, M);
+}
+```
+
 #### [Common Prime Divisors](https://codility.com/programmers/lessons/12-euclidean_algorithm/common_prime_divisors/)
