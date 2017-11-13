@@ -46,6 +46,9 @@
 - [12. Euclidean Algorithm](#12-euclidean-algorithm)
     - [12.1. Chocolates By Numbers](#chocolates-by-numbers)
     - [12.2. Common Prime Divisors](#common-prime-divisors)
+- [13. Fibonacci numbers](#13-fibonacci-numbers)
+    - [13.1. Ladder](#ladder)
+    - [13.2. FibFrog](#fibfrog)
 
 ### [1 Iterations](https://codility.com/programmers/lessons/1-iterations/)
 #### [Binary Gap](https://codility.com/programmers/lessons/1-iterations/binary_gap/)
@@ -806,3 +809,54 @@ function solution (N, M) {
 ```
 
 #### [Common Prime Divisors](https://codility.com/programmers/lessons/12-euclidean_algorithm/common_prime_divisors/)
+```javascript
+function solution(A, B) {
+    const len = A.length;
+    let ans = 0;
+	for (let i = 0; i < len; i++) {
+        let first = A[i];
+        let second = B[i];
+        let gcdA = gcd(first, second);
+        let gcdB = gcd(first, second);
+        while (gcdA !== 1) {
+            first = Math.floor(first / gcdA);
+            gcdA = gcd(first, gcdA);
+        }
+        while (gcdB !== 1) {
+            second = Math.floor(second / gcdB);
+            gcdB = gcd(second, gcdB);
+        }
+        if (first === second) {
+            ans = ans + 1;
+        }
+    }
+	return ans;
+}
+function gcd (a, b) {
+	if (a % b == 0) {
+		return b;
+	} else {
+		return gcd(b, a % b);
+	}
+}
+```
+### [13 Common Prime Divisors](https://codility.com/programmers/lessons/13-fibonacci_numbers/)
+#### [Ladder](https://codility.com/programmers/lessons/13-fibonacci_numbers/ladder/)
+```javascript
+function solution(A, B) {
+    const maxOfA = Math.max(...A);
+    const fibNumbers = [1, 1];
+    for (let i = 2; i <= maxOfA; i++) {
+        const safeInt = (fibNumbers[i - 1] + fibNumbers[i - 2]) % (1 << 30);
+        fibNumbers.push(safeInt);
+    }
+    const answer = A.slice();
+    const len = A.length;
+    for (let i = 0; i < len; i++) {
+        answer[i] = fibNumbers[A[i]] % (1 << B[i]);
+    }
+    return answer;
+}
+```
+
+#### [FibFrog](https://codility.com/programmers/lessons/13-fibonacci_numbers/fib_frog/)
