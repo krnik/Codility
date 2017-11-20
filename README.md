@@ -49,6 +49,9 @@
 - [13. Fibonacci numbers](#13-fibonacci-numbers)
     - [13.1. Ladder](#ladder)
     - [13.2. FibFrog](#fibfrog)
+- [14. Binary Seach Algorithm](#14-binary-search-algorithm)
+    - [14.1. Min Max Division](#min-max-division)
+    - [14.2. Nailing Planks](#nailing-planks)
 
 ### [1 Iterations](https://codility.com/programmers/lessons/1-iterations/)
 #### [Binary Gap](https://codility.com/programmers/lessons/1-iterations/binary_gap/)
@@ -860,3 +863,60 @@ function solution(A, B) {
 ```
 
 #### [FibFrog](https://codility.com/programmers/lessons/13-fibonacci_numbers/fib_frog/)
+```javascript
+function solution(A) {
+    const leaves = [...A, 1];
+    const len = leaves.length;
+    const fibNumbers = getFibNumsUpTo(len);
+    const fNumsLen = fibNumbers.length;
+    const reachableIn = new Array(len).fill(-1);
+    for (let i of fibNumbers) {
+        if (leaves[i - 1] === 1) {
+            reachableIn[i - 1] = 1;
+        }
+    }
+    for (let i = 0; i < len; i++) {
+        if (!leaves[i] || reachableIn[i] > 0) {
+            continue;
+        }
+        let minIndex = -1;
+        let minValue = 100000;
+        for (let j = 0; j < fNumsLen; j++) {
+            const prevIndex = i - fibNumbers[j];
+            if (prevIndex < 0) {
+                break;
+            }
+            if (reachableIn[prevIndex] > 0 && minValue > reachableIn[prevIndex]) {
+                minValue = reachableIn[prevIndex];
+                minIndex = prevIndex;
+            }
+            if (minIndex !== -1) {
+                reachableIn[i] = minValue + 1;
+            }
+        }
+    }
+    return reachableIn[len - 1];
+}
+
+function getFibNumsUpTo (N) {
+    const fib = new Array(N + 2).fill(0);
+    fib[1] = 1;
+    const len = fib.length;
+    let i = 2;
+    for (i; i <= len; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+        if (fib[i] >= N) {
+            break;
+        }
+    }
+    return fib.slice(2, i + 1);
+}
+```
+### [13 Binary Seach Algorithm](https://codility.com/programmers/lessons/14-binary_search_algorithm/)
+#### [Min Max Division](https://codility.com/programmers/lessons/14-binary_search_algorithm/min_max_division/)
+```javascript
+
+```
+#### [Nailing Planks](https://codility.com/programmers/lessons/14-binary_search_algorithm/nailing_planks/)
+```javascript
+```
