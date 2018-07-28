@@ -1,4 +1,8 @@
+
+
 ### Table Of Content
+[Test](#-test-test)
+
 - [1. Iterations](#1-iterations)
     - [1.1. Binary Gap](#binary-gap)
 - [2. Arrays](#2-arrays)
@@ -53,6 +57,8 @@
     - [14.1. Min Max Division](#min-max-division)
     - [14.2. Nailing Planks](#nailing-planks)
 
+<a name="test-test"></a>
+
 ### [1 Iterations](https://codility.com/programmers/lessons/1-iterations/)
 #### [Binary Gap](https://codility.com/programmers/lessons/1-iterations/binary_gap/)
 > Solution: Either use String method - Match [(see MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Match) or simply iterate through binary representation of a given number as shown in second solution function.
@@ -81,7 +87,6 @@ function solution (N) {
     }
 }
 ```
-
 ### [2 Arrays](https://codility.com/programmers/lessons/2-arrays/)
 #### [Cyclic Rotation](https://codility.com/programmers/lessons/2-arrays/cyclic_rotation/)
 
